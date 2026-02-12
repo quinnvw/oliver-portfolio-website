@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver von Wiese - Video Editor Portfolio</title>
+    <style>
+        /* ── Core Styles ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gap: 30px;
+            --container-width: 90vw;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #888;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ── Section Heading Logic ── */
+        .gallery-h2 {
+            font-weight: 300;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* 800px and above: 3.5rem + Double space top & bottom */
+        @media (min-width: 800px) {
+            .gallery-h2 {
+                margin-top: calc(var(--gap) * 2);
+                margin-bottom: calc(var(--gap) * 2);
+                font-size: 3.5rem;
+                letter-spacing: 2px;
+                background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+        }
+
+        /* 799px down to 572px: 2.5rem + Double space top only */
+        @media (max-width: 799px) and (min-width: 572px) {
+            .gallery-h2 {
+                margin-top: calc(var(--gap) * 2);
+                margin-bottom: var(--gap);
+                font-size: 2.5rem;
+                color: #ffffff;
+            }
+        }
+
+        /* Below 572px: 1.8rem + Double space top only */
+        @media (max-width: 571px) {
+            .gallery-h2 {
+                margin-top: calc(var(--gap) * 2);
+                margin-bottom: var(--gap);
+                font-size: 1.8rem;
+                color: #ffffff;
+            }
+        }
+
+        /* ── Containers ── */
+        .video-section, .gallery-section {
+            margin: 0 auto;
+            width: var(--container-width);
+        }
+
+        @media (min-width: 2101px) {
+            :root { --container-width: 80%; }
+        }
+
+        .video-section + .video-section,
+        .video-section + .gallery-section {
+            margin-top: var(--gap);
+        }
+
+        /* ── Video Grid Layouts ── */
+        .video-grid-4 {
+            display: grid;
+            gap: var(--gap);
+            width: 100%;
+        }
+
+        @media (min-width: 1001px) {
+            .video-grid-4 { grid-template-columns: 1fr 1fr; }
+        }
+
+        .video-row-3 {
+            display: flex;
+            gap: var(--gap);
+            width: 100%;
+            justify-content: center;
+        }
+
+        @media (max-width: 1000px) {
+            .video-row-3 { flex-direction: column; align-items: center; }
+        }
+
+        .video-item { width: 100%; }
+        .video-item:not(.vertical) .video-wrapper { padding-bottom: 56.25%; }
+        .video-item.vertical .video-wrapper { padding-bottom: 177.78%; }
+
+        .video-wrapper {
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .video-wrapper:hover { transform: translateY(-5px); }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        }
+
+        @media (min-width: 1001px) {
+            .video-item.vertical {
+                width: min(calc((var(--container-width) - (2 * var(--gap))) / 3), calc((90vh - var(--gap)) * 9 / 16));
+                flex: 0 1 auto;
+            }
+        }
+
+        /* ── Smart Gallery (NO CROP) ── */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gap);
+            width: 100%;
+            grid-auto-flow: dense; 
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .landscape { grid-column: span 6; }
+        .portrait { grid-column: span 4; }
+
+        /* Equal-Height Row Logic */
+        .special-row {
+            grid-column: span 12;
+            display: flex;
+            gap: var(--gap);
+            align-items: stretch;
+        }
+
+        .special-row .landscape-special { flex: 1.5; width: 0; }
+        .special-row .portrait-special { flex: 0.8; width: 0; }
+
+        @media (max-width: 1000px) {
+            :root { --gap: 20px; }
+            .special-row { display: grid; grid-template-columns: repeat(12, 1fr); }
+            .special-row img { grid-column: span 12; width: 100%; }
+            .landscape { grid-column: span 12; }
+            .portrait { grid-column: span 6; }
+        }
+
+        @media (max-width: 480px) {
+            .portrait, .landscape { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Oliver von Wiese</h1>
+        <p class="subtitle">Video Editor</p>
+    </header>
+
+    <div class="video-section">
+        <div class="video-grid-4">
+            <div class="video-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/H9ZXfIrdoCE" allowfullscreen></iframe></div></div>
+            <div class="video-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/uUkNXBln-0c" allowfullscreen></iframe></div></div>
+            <div class="video-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/wmAlQbhmbDc" allowfullscreen></iframe></div></div>
+            <div class="video-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/xX_ZD4ceCAM" allowfullscreen></iframe></div></div>
+        </div>
+    </div>
+
+    <div class="video-section">
+        <div class="video-row-3">
+            <div class="video-item vertical"><div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1127467682?title=0&byline=0&portrait=0" allowfullscreen></iframe></div></div>
+            <div class="video-item vertical"><div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1127468834?title=0&byline=0&portrait=0" allowfullscreen></iframe></div></div>
+            <div class="video-item vertical"><div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1127469368?title=0&byline=0&portrait=0" allowfullscreen></iframe></div></div>
+        </div>
+    </div>
+
+    <section class="gallery-section">
+        <h2 class="gallery-h2">South African interior design and renovation reality show</h2>
+        <div class="gallery">
+            <div class="special-row">
+                <img class="landscape-special" src="SA Interior Design/3A0A0002.jpg" alt="">
+                <img class="portrait-special" src="SA Interior Design/3A0A9827.jpg" alt="">
+            </div>
+
+            <img class="portrait" src="SA Interior Design/3A0A0016.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0022.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0126.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0433.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0517.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0523.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0536.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0538.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0617.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A0636.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A8660.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A8666.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A8675.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A8687.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A8911.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A8984.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9036.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9096.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9111.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9150.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9226.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9227.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9243.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9298.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9316.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9320.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9394.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9406.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9475.jpg" alt="">
+            <img class="portrait" src="SA Interior Design/3A0A9540.jpg" alt="">
+
+            <img class="landscape" src="SA Interior Design/3A0A9043.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9064.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9284.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9308.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9367.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9369.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9767.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9803.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9917.jpg" alt="">
+            <img class="landscape" src="SA Interior Design/3A0A9281.jpg" alt="">
+        </div>
+    </section>
+
+    <script src="https://player.vimeo.com/api/player.js"></script>
+</body>
+</html>
