@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <title>Oliver von Wiese - Video Editor Portfolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --gap: 30px;
+        --container-width: 70vw;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background-color: #0a0a0a;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+
+      .material-symbols-outlined {
+        text-decoration: none;
+      }
+
+      .gallery-h2 {
+        font-size: clamp(0.6875rem, 0.39rem + 1.48vw, 1.5rem);
+        font-weight: 300;
+        text-transform: capitalize;
+        text-align: left;
+        line-height: 1.2;
+        margin: 0px;
+        color: white;
+      }
+
+      .gallery-section {
+        margin: 0 auto;
+        width: var(--container-width);
+      }
+
+      @media (min-width: 2101px) {
+        :root {
+          --container-width: 80%;
+        }
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: var(--gap);
+        width: 100%;
+        grid-auto-flow: dense;
+      }
+
+      .gallery img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 4px;
+      }
+
+      .landscape {
+        grid-column: span 6;
+      }
+      .portrait {
+        grid-column: span 4;
+      }
+
+      .special-row {
+        grid-column: span 12;
+        display: flex;
+        gap: var(--gap);
+        align-items: stretch;
+      }
+
+      .special-row .landscape-special {
+        flex: 1.5;
+        width: 0;
+      }
+      .special-row .portrait-special {
+        flex: 0.8;
+        width: 0;
+      }
+
+      @media (min-width: 1000px){
+        .gallery-h2{
+          margin-bottom: 30px;
+          margin-top: 30px;
+        }
+      }
+
+      @media (max-width: 1000px) {
+        :root {
+          --gap: 20px;
+        }
+
+        .gallery-h2{
+          margin-top: 30px;
+          margin-bottom: 30px;
+        }
+
+        
+       
+        .landscape {
+          grid-column: span 6;
+        }
+        .portrait {
+          grid-column: span 4;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .portrait{
+          grid-column: span 4;
+        }
+        .landscape {
+          grid-column: span 6;
+        }
+      }
+
+      /* ── Photo Focus Mode ── */
+      .photo-focus-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .photo-focus-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
+
+      .photo-focus-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 24px;
+        transition: background 0.2s ease;
+        z-index: 10001;
+      }
+
+      .photo-focus-close:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      .photo-focus-container {
+        position: relative;
+        width: 90%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: max-content 1fr max-content;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      @media (max-width: 800px) {
+        .photo-focus-container {
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr auto auto;
+        }
+
+        .photo-focus-nav.prev {
+          grid-row: 2;
+          grid-column: 1;
+          justify-self: start;
+        }
+
+        .photo-focus-nav.next {
+          grid-row: 2;
+          grid-column: 1;
+          justify-self: end;
+        }
+      }
+
+      .photo-focus-middle {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-width: 0;
+      }
+
+      .photo-focus-img {
+        max-width: 100%;
+        max-height: 80vh;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .photo-focus-nav {
+        position: absolute;
+        width: max-content;
+        border-radius: 500px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 24px;
+        transition: background 0.2s ease;
+        z-index: 10000;
+        padding: 6px;
+      }
+
+      .photo-focus-nav:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      .photo-focus-nav.prev {
+        position: relative;
+      }
+
+      .photo-focus-nav.next {
+        position: relative;
+      }
+
+      .gallery img {
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .photo-focus-nav {
+          width: max-content;
+          font-size: 20px;
+        }
+
+        .photo-focus-container {
+          gap: 10px;
+        }
+
+        .photo-focus-close {
+          top: 10px;
+          right: 10px;
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      /* ── Dot Pagination ── */
+      .focus-dots {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .focus-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .focus-dot:hover {
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      .focus-dot.active {
+        background: #ffffff;
+        transform: scale(1.2);
+      }
+
+      /* ── Contact Header/Footer ── */
+      .contact-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 20px;
+      }
+
+      .contact-icon-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        text-decoration: none;
+        transition: background 0.2s ease;
+      }
+
+      .contact-icon-link:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 500px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.2s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="contact-bar">
+      <a href="index.html" class="back-btn">
+        <span class="material-symbols-outlined">arrow_back</span>
+        Back
+      </a>
+      <a href="https://www.instagram.com/olivervonwiese/" target="_blank" class="contact-icon-link">
+        <span class="material-symbols-outlined">camera_alt</span>
+      </a>
+      <a href="tel:+27769293571" class="contact-icon-link">
+        <span class="material-symbols-outlined">phone</span>
+      </a>
+      <a href="mailto:oliverluke1994@gmail.com" class="contact-icon-link">
+        <span class="material-symbols-outlined">mail</span>
+      </a>
+    </div>
+
+    <section class="gallery-section">
+      <h2 class="gallery-h2">
+        South African interior design and renovation reality show
+      </h2>
+      <div class="gallery">
+        <div class="special-row">
+          <img
+            class="landscape-special"
+            src="SA Interior Design/3A0A0002.jpg"
+            alt=""
+          />
+          <img
+            class="portrait-special"
+            src="SA Interior Design/3A0A9827.jpg"
+            alt=""
+          />
+        </div>
+
+        <img class="portrait" src="SA Interior Design/3A0A0016.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0022.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0126.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0433.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0517.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0523.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0536.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0538.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0617.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A0636.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A8660.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A8666.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A8675.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A8687.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A8911.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A8984.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9036.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9096.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9111.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9150.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9226.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9227.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9243.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9298.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9316.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9320.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9394.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9406.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9475.jpg" alt="" />
+        <img class="portrait" src="SA Interior Design/3A0A9540.jpg" alt="" />
+
+        <img class="landscape" src="SA Interior Design/3A0A9043.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9064.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9284.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9308.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9367.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9369.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9767.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9803.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9917.jpg" alt="" />
+        <img class="landscape" src="SA Interior Design/3A0A9281.jpg" alt="" />
+      </div>
+    </section>
+
+    <div class="photo-focus-overlay" id="photoFocusOverlay">
+      <button class="photo-focus-close" id="focusClose">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="photo-focus-container">
+        <button class="photo-focus-nav prev" id="focusPrev">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+
+        <div class="photo-focus-middle">
+          <img class="photo-focus-img" id="focusImg" src="" alt="" />
+          <div class="focus-dots" id="focusDots"></div>
+        </div>
+
+        <button class="photo-focus-nav next" id="focusNext">
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const photos = [
+        "SA Interior Design/3A0A0002.jpg",
+        "SA Interior Design/3A0A9827.jpg",
+        "SA Interior Design/3A0A0016.jpg",
+        "SA Interior Design/3A0A0022.jpg",
+        "SA Interior Design/3A0A0126.jpg",
+        "SA Interior Design/3A0A0433.jpg",
+        "SA Interior Design/3A0A0517.jpg",
+        "SA Interior Design/3A0A0523.jpg",
+        "SA Interior Design/3A0A0536.jpg",
+        "SA Interior Design/3A0A0538.jpg",
+        "SA Interior Design/3A0A0617.jpg",
+        "SA Interior Design/3A0A0636.jpg",
+        "SA Interior Design/3A0A8660.jpg",
+        "SA Interior Design/3A0A8666.jpg",
+        "SA Interior Design/3A0A8675.jpg",
+        "SA Interior Design/3A0A8687.jpg",
+        "SA Interior Design/3A0A8911.jpg",
+        "SA Interior Design/3A0A8984.jpg",
+        "SA Interior Design/3A0A9036.jpg",
+        "SA Interior Design/3A0A9096.jpg",
+        "SA Interior Design/3A0A9111.jpg",
+        "SA Interior Design/3A0A9150.jpg",
+        "SA Interior Design/3A0A9226.jpg",
+        "SA Interior Design/3A0A9227.jpg",
+        "SA Interior Design/3A0A9243.jpg",
+        "SA Interior Design/3A0A9298.jpg",
+        "SA Interior Design/3A0A9316.jpg",
+        "SA Interior Design/3A0A9320.jpg",
+        "SA Interior Design/3A0A9394.jpg",
+        "SA Interior Design/3A0A9406.jpg",
+        "SA Interior Design/3A0A9475.jpg",
+        "SA Interior Design/3A0A9540.jpg",
+        "SA Interior Design/3A0A9043.jpg",
+        "SA Interior Design/3A0A9064.jpg",
+        "SA Interior Design/3A0A9284.jpg",
+        "SA Interior Design/3A0A9308.jpg",
+        "SA Interior Design/3A0A9367.jpg",
+        "SA Interior Design/3A0A9369.jpg",
+        "SA Interior Design/3A0A9767.jpg",
+        "SA Interior Design/3A0A9803.jpg",
+        "SA Interior Design/3A0A9917.jpg",
+        "SA Interior Design/3A0A9281.jpg",
+      ];
+
+      let currentIndex = 0;
+      const overlay = document.getElementById("photoFocusOverlay");
+      const focusImg = document.getElementById("focusImg");
+      const closeBtn = document.getElementById("focusClose");
+      const prevBtn = document.getElementById("focusPrev");
+      const nextBtn = document.getElementById("focusNext");
+      const dotsContainer = document.getElementById("focusDots");
+
+      function updateFocusPhoto() {
+        focusImg.src = photos[currentIndex];
+        updateDots();
+      }
+
+      function updateDots() {
+        const dots = dotsContainer.querySelectorAll(".focus-dot");
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === currentIndex);
+        });
+      }
+
+      function createDots() {
+        dotsContainer.innerHTML = "";
+        photos.forEach((_, i) => {
+          const dot = document.createElement("div");
+          dot.className = "focus-dot" + (i === 0 ? " active" : "");
+          dot.addEventListener("click", () => {
+            currentIndex = i;
+            updateFocusPhoto();
+          });
+          dotsContainer.appendChild(dot);
+        });
+      }
+
+      function openFocusMode(index) {
+        currentIndex = index;
+        updateFocusPhoto();
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeFocusMode() {
+        overlay.classList.remove("active");
+        document.body.style.overflow = "";
+        focusImg.src = "";
+      }
+
+      function navigatePrev() {
+        currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+        updateFocusPhoto();
+      }
+
+      function navigateNext() {
+        currentIndex = (currentIndex + 1 + photos.length) % photos.length;
+        updateFocusPhoto();
+      }
+
+      closeBtn.addEventListener("click", closeFocusMode);
+      prevBtn.addEventListener("click", navigatePrev);
+      nextBtn.addEventListener("click", navigateNext);
+
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          closeFocusMode();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (!overlay.classList.contains("active")) return;
+
+        if (e.key === "Escape") {
+          closeFocusMode();
+        } else if (e.key === "ArrowLeft") {
+          navigatePrev();
+        } else if (e.key === "ArrowRight") {
+          navigateNext();
+        }
+      });
+
+      document.querySelectorAll(".gallery img").forEach((img, index) => {
+        img.addEventListener("click", () => {
+          openFocusMode(index);
+        });
+      });
+
+      createDots();
+    </script>
+
+    <footer>
+      <div class="contact-bar">
+        <a href="https://www.instagram.com/olivervonwiese/" target="_blank" class="contact-icon-link">
+          <span class="material-symbols-outlined">camera_alt</span>
+        </a>
+        <a href="tel:+27769293571" class="contact-icon-link">
+          <span class="material-symbols-outlined">phone</span>
+        </a>
+        <a href="mailto:oliverluke1994@gmail.com" class="contact-icon-link">
+          <span class="material-symbols-outlined">mail</span>
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>

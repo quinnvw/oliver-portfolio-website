@@ -1,281 +1,850 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <title>Oliver von Wiese - Video Editor Portfolio</title>
     <style>
-        /* ── Core Styles ── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      /* ── Core Styles ── */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      :root {
+        --gap: 30px;
+        --container-width: 75vw;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background-color: #0a0a0a;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+
+      header {
+        text-align: center;
+        padding: 60px 20px 40px;
+        background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 300;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .sa-design-btn-con {
+        width: max-content;
+        justify-self: end;
+        padding: 6px;
+        background-color: #ffffff;
+        border-radius: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0px;
+        text-decoration: none;
+        color: #000;
+      }
+
+      .video-click-shield {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        cursor: pointer;
+      }
+
+      .sa-design-btn-con:hover {
+        animation: saIntDesHover 0.25s ease-in-out forwards;
+      }
+
+      @keyframes saIntDesHover {
+        0% {
+          background-color: #ffffff;
+        }
+        100% {
+          background-color: #838181;
+          color: #ffffff;
+        }
+      }
+
+      .material-symbols-outlined {
+        text-decoration: none;
+      }
+
+      .sa-design-thumb {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 8px;
+      }
+
+      .sa-design-thumb-con {
+        position: relative;
+        display: flex;
+        margin-bottom: 30px;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        font-weight: 300;
+        color: #888;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+
+      /* ── Section Heading Logic ── */
+      .gallery-h2 {
+        font-size: clamp(0.6875rem, 0.39rem + 1.48vw, 1.5rem);
+        font-weight: 300;
+        text-transform: capitalize;
+        text-align: left;
+        line-height: 1.2;
+        margin: 0px;
+        color: white;
+      }
+
+      /* ── Containers ── */
+      .video-section,
+      .gallery-section {
+        margin: 0 auto;
+        width: var(--container-width);
+      }
+
+      @media (min-width: 2101px) {
         :root {
-            --gap: 30px;
-            --container-width: 90vw;
+          --container-width: 80%;
         }
+      }
 
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
+      .video-section + .video-section,
+      .video-section + .gallery-section {
+        margin-top: var(--gap);
+      }
 
-        header {
-            text-align: center;
-            padding: 60px 20px 40px;
-            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
-        }
+      /* ── Video Grid Layouts ── */
+      .video-grid-4 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap);
+        width: 100%;
+      }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            font-weight: 300;
-            color: #888;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        /* ── Section Heading Logic ── */
-        .gallery-h2 {
-            font-weight: 300;
-            text-transform: uppercase;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        /* 800px and above: 3.5rem + Double space top & bottom */
-        @media (min-width: 800px) {
-            .gallery-h2 {
-                margin-top: calc(var(--gap) * 2);
-                margin-bottom: calc(var(--gap) * 2);
-                font-size: 3.5rem;
-                letter-spacing: 2px;
-                background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-        }
-
-        /* 799px down to 572px: 2.5rem + Double space top only */
-        @media (max-width: 799px) and (min-width: 572px) {
-            .gallery-h2 {
-                margin-top: calc(var(--gap) * 2);
-                margin-bottom: var(--gap);
-                font-size: 2.5rem;
-                color: #ffffff;
-            }
-        }
-
-        /* Below 572px: 1.8rem + Double space top only */
-        @media (max-width: 571px) {
-            .gallery-h2 {
-                margin-top: calc(var(--gap) * 2);
-                margin-bottom: var(--gap);
-                font-size: 1.8rem;
-                color: #ffffff;
-            }
-        }
-
-        /* ── Containers ── */
-        .video-section, .gallery-section {
-            margin: 0 auto;
-            width: var(--container-width);
-        }
-
-        @media (min-width: 2101px) {
-            :root { --container-width: 80%; }
-        }
-
-        .video-section + .video-section,
-        .video-section + .gallery-section {
-            margin-top: var(--gap);
-        }
-
-        /* ── Video Grid Layouts ── */
+      @media (min-width: 1001px) {
         .video-grid-4 {
-            display: grid;
-            gap: var(--gap);
-            width: 100%;
+          grid-template-columns: 1fr 1fr;
         }
+      }
 
-        @media (min-width: 1001px) {
-            .video-grid-4 { grid-template-columns: 1fr 1fr; }
-        }
+      .video-row-3 {
+        display: flex;
+        gap: var(--gap);
+        width: 100%;
+        justify-content: center;
+        align-items: stretch;
+      }
 
+      @media (max-width: 1000px) {
         .video-row-3 {
-            display: flex;
-            gap: var(--gap);
-            width: 100%;
-            justify-content: center;
+          align-items: stretch;
         }
+      }
 
-        @media (max-width: 1000px) {
-            .video-row-3 { flex-direction: column; align-items: center; }
+      .video-item {
+        flex: 1;
+        min-width: 0;
+      }
+      .video-item:not(.vertical) .video-wrapper {
+        padding-bottom: 56.25%;
+      }
+      .video-item.vertical .video-wrapper {
+        padding-bottom: 177.78%;
+      }
+
+      .video-wrapper {
+        position: relative;
+        height: 0;
+        overflow: hidden;
+        background: #000;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+      }
+
+      .video-wrapper:hover {
+        transform: translateY(-5px);
+      }
+
+      .thumb-label-con {
+        position: absolute;
+        bottom: clamp(0.6875rem, 0.39rem + 1.48vw, 1.5rem);
+        left: clamp(0.6875rem, 0.39rem + 1.48vw, 1.5rem);
+        width: max-content;
+        padding-inline: 14px;
+        padding-block: 8px;
+        background: rgba(255, 255, 255, 0.26);
+        border-radius: 500px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .thumb-type {
+        font-size: clamp(0.6875rem, 0.39rem + 1.48vw, 1.5rem);
+        font-weight: 300;
+        text-transform: capitalize;
+      }
+
+      .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      @media (min-width: 1001px) {
+        .video-item.vertical {
+          width: 100%;
+          flex: 1;
         }
+      }
 
-        .video-item { width: 100%; }
-        .video-item:not(.vertical) .video-wrapper { padding-bottom: 56.25%; }
-        .video-item.vertical .video-wrapper { padding-bottom: 177.78%; }
+      /* ── Smart Gallery (NO CROP) ── */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: var(--gap);
+        width: 100%;
+        grid-auto-flow: dense;
+      }
 
-        .video-wrapper {
-            position: relative;
-            height: 0;
-            overflow: hidden;
-            background: #000;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+      .gallery img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 4px;
+      }
+
+      .landscape {
+        grid-column: span 6;
+      }
+      .portrait {
+        grid-column: span 4;
+      }
+
+      /* Equal-Height Row Logic */
+      .special-row {
+        grid-column: span 12;
+        display: flex;
+        gap: var(--gap);
+        align-items: stretch;
+      }
+
+      .special-row .landscape-special {
+        flex: 1.5;
+        width: 0;
+      }
+      .special-row .portrait-special {
+        flex: 0.8;
+        width: 0;
+      }
+
+      .sa-design-hub {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        margin-bottom: 30px;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 1000px) {
+        :root {
+          --gap: 20px;
         }
-
-        .video-wrapper:hover { transform: translateY(-5px); }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: 0;
-        }
-
-        @media (min-width: 1001px) {
-            .video-item.vertical {
-                width: min(calc((var(--container-width) - (2 * var(--gap))) / 3), calc((90vh - var(--gap)) * 9 / 16));
-                flex: 0 1 auto;
-            }
-        }
-
-        /* ── Smart Gallery (NO CROP) ── */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: var(--gap);
-            width: 100%;
-            grid-auto-flow: dense; 
-        }
-
-        .gallery img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px;
-        }
-
-        .landscape { grid-column: span 6; }
-        .portrait { grid-column: span 4; }
-
-        /* Equal-Height Row Logic */
         .special-row {
-            grid-column: span 12;
-            display: flex;
-            gap: var(--gap);
-            align-items: stretch;
+          display: grid;
+          grid-template-columns: repeat(12, 1fr);
+        }
+        .special-row img {
+          grid-column: span 12;
+          width: 100%;
+        }
+        .landscape {
+          grid-column: span 12;
+        }
+        .portrait {
+          grid-column: span 4;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .portrait,
+        .landscape {
+          grid-column: span 12;
+        }
+        .video-row-3{
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      /* ── Video Focus Mode ── */
+      .video-focus-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .video-focus-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
+
+      .video-focus-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 24px;
+        transition: background 0.2s ease;
+        z-index: 10001;
+      }
+
+      .video-focus-close:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      .video-focus-container {
+        position: relative;
+        width: 90%;
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: max-content 1fr max-content;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      @media (max-width: 800px) {
+        .video-focus-container {
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr auto auto;
         }
 
-        .special-row .landscape-special { flex: 1.5; width: 0; }
-        .special-row .portrait-special { flex: 0.8; width: 0; }
-
-        @media (max-width: 1000px) {
-            :root { --gap: 20px; }
-            .special-row { display: grid; grid-template-columns: repeat(12, 1fr); }
-            .special-row img { grid-column: span 12; width: 100%; }
-            .landscape { grid-column: span 12; }
-            .portrait { grid-column: span 6; }
+        .video-focus-nav.prev {
+          grid-row: 2;
+          grid-column: 1;
+          justify-self: start;
         }
 
-        @media (max-width: 480px) {
-            .portrait, .landscape { grid-column: span 12; }
+        .video-focus-nav.next {
+          grid-row: 2;
+          grid-column: 1;
+          justify-self: end;
         }
+      }
+
+      .video-focus-middle {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-width: 0;
+      }
+
+      .video-focus-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .video-focus-wrapper.horizontal {
+        aspect-ratio: 16 / 9;
+      }
+
+      .video-focus-wrapper.vertical {
+        width: 400px;
+        max-width: 100%;
+        aspect-ratio: 9 / 16;
+        margin: 0 auto;
+      }
+
+      .video-focus-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        border: none;
+      }
+
+      .video-focus-nav {
+        position: absolute;
+        width: max-content;
+        border-radius: 500px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 24px;
+        transition: background 0.2s ease;
+        z-index: 10000;
+        padding: 6px;
+      }
+
+      .video-focus-nav:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+
+      .video-focus-nav.prev {
+        position: relative;
+      }
+
+      .video-focus-nav.next {
+        position: relative;
+      }
+
+      .video-item {
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .video-focus-nav {
+          width: max-content;
+          font-size: 20px;
+        }
+
+        .video-focus-container {
+          gap: 10px;
+        }
+
+        .video-focus-close {
+          top: 10px;
+          right: 10px;
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      /* ── Dot Pagination ── */
+      .focus-dots {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .focus-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .focus-dot:hover {
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      @media (max-width: 600px){
+        .video-grid-4{
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .focus-dot.active {
+        background: #ffffff;
+        transform: scale(1.2);
+      }
+
+      /* ── Contact Header/Footer ── */
+      .contact-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 20px;
+      }
+
+      .contact-icon-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        text-decoration: none;
+        transition: background 0.2s ease;
+      }
+
+      .contact-icon-link:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 500px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.2s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+      }
+
+      
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="contact-bar">
+      <a href="https://www.instagram.com/olivervonwiese/" target="_blank" class="contact-icon-link">
+        <span class="material-symbols-outlined">camera_alt</span>
+      </a>
+      <a href="tel:+27769293571" class="contact-icon-link">
+        <span class="material-symbols-outlined">phone</span>
+      </a>
+      <a href="mailto:oliverluke1994@gmail.com" class="contact-icon-link">
+        <span class="material-symbols-outlined">mail</span>
+      </a>
+    </div>
 
     <header>
-        <h1>Oliver von Wiese</h1>
-        <p class="subtitle">Video Editor</p>
+      <h1>Oliver von Wiese</h1>
     </header>
 
-    <div class="video-section">
-        <div class="video-grid-4">
-            <div class="video-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/H9ZXfIrdoCE" allowfullscreen></iframe></div></div>
-            <div class="video-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/uUkNXBln-0c" allowfullscreen></iframe></div></div>
-            <div class="video-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/wmAlQbhmbDc" allowfullscreen></iframe></div></div>
-            <div class="video-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/xX_ZD4ceCAM" allowfullscreen></iframe></div></div>
-        </div>
+    <div class="gallery-section" style="margin-top: 40px;">
+      <div class="sa-design-hub">
+        <h2 class="gallery-h2">Video Editing Work</h2>
+      </div>
     </div>
 
     <div class="video-section">
-        <div class="video-row-3">
-            <div class="video-item vertical"><div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1127467682?title=0&byline=0&portrait=0" allowfullscreen></iframe></div></div>
-            <div class="video-item vertical"><div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1127468834?title=0&byline=0&portrait=0" allowfullscreen></iframe></div></div>
-            <div class="video-item vertical"><div class="video-wrapper"><iframe src="https://player.vimeo.com/video/1127469368?title=0&byline=0&portrait=0" allowfullscreen></iframe></div></div>
+      <div class="video-grid-4">
+        <div class="video-item">
+          <div class="video-wrapper">
+            <div class="video-click-shield"></div>
+            <iframe
+              src="https://www.youtube.com/embed/H9ZXfIrdoCE"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
+        <div class="video-item">
+          <div class="video-wrapper">
+            <div class="video-click-shield"></div>
+            <iframe
+              src="https://www.youtube.com/embed/uUkNXBln-0c"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-wrapper">
+            <div class="video-click-shield"></div>
+            <iframe
+              src="https://www.youtube.com/embed/wmAlQbhmbDc"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-item">
+          <div class="video-wrapper">
+            <div class="video-click-shield"></div>
+            <iframe
+              src="https://www.youtube.com/embed/xX_ZD4ceCAM"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-section">
+      <div class="video-row-3">
+        <div class="video-item vertical">
+          <div class="video-wrapper">
+            <div class="video-click-shield"></div>
+            <iframe
+              src="https://player.vimeo.com/video/1127467682?title=0&byline=0&portrait=0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-item vertical">
+          <div class="video-wrapper">
+            <div class="video-click-shield"></div>
+            <iframe
+              src="https://player.vimeo.com/video/1127468834?title=0&byline=0&portrait=0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-item vertical">
+          <div class="video-wrapper">
+            <div class="video-click-shield"></div>
+            <iframe
+              src="https://player.vimeo.com/video/1127469368?title=0&byline=0&portrait=0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="gallery-section">
-        <h2 class="gallery-h2">South African interior design and renovation reality show</h2>
-        <div class="gallery">
-            <div class="special-row">
-                <img class="landscape-special" src="SA Interior Design/3A0A0002.jpg" alt="">
-                <img class="portrait-special" src="SA Interior Design/3A0A9827.jpg" alt="">
-            </div>
-
-            <img class="portrait" src="SA Interior Design/3A0A0016.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0022.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0126.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0433.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0517.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0523.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0536.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0538.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0617.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A0636.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A8660.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A8666.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A8675.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A8687.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A8911.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A8984.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9036.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9096.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9111.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9150.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9226.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9227.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9243.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9298.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9316.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9320.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9394.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9406.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9475.jpg" alt="">
-            <img class="portrait" src="SA Interior Design/3A0A9540.jpg" alt="">
-
-            <img class="landscape" src="SA Interior Design/3A0A9043.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9064.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9284.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9308.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9367.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9369.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9767.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9803.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9917.jpg" alt="">
-            <img class="landscape" src="SA Interior Design/3A0A9281.jpg" alt="">
+      <div class="sa-design-hub">
+        <h2 class="gallery-h2">
+          South African interior design and renovation reality show
+        </h2>
+        <a href="SAInteriorDesign.html" class="sa-design-btn-con">
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+      <a href="SAInteriorDesign.html" style="text-decoration: none; color: inherit; display: block">
+        <div class="sa-design-thumb-con">
+          <img
+            class="landscape sa-design-thumb"
+            src="SA Interior Design/3A0A9308.jpg"
+            alt=""
+          />
+          <div class="thumb-label-con">
+            <div class="thumb-type">Reality Show</div>
+          </div>
         </div>
+      </a>
     </section>
 
+    <div class="video-focus-overlay" id="videoFocusOverlay">
+      <button class="video-focus-close" id="focusClose">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="video-focus-container">
+        <button class="video-focus-nav prev" id="focusPrev">
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+
+        <div class="video-focus-middle">
+          <div class="video-focus-wrapper" id="focusVideoWrapper">
+            <iframe
+              class="video-focus-iframe"
+              id="focusIframe"
+              src=""
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="focus-dots" id="focusDots"></div>
+        </div>
+
+        <button class="video-focus-nav next" id="focusNext">
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
     <script src="https://player.vimeo.com/api/player.js"></script>
-</body>
+    <script>
+      const videos = [
+        {
+          src: "https://www.youtube.com/embed/H9ZXfIrdoCE",
+          type: "youtube",
+          id: "H9ZXfIrdoCE",
+          vertical: false,
+        },
+        {
+          src: "https://www.youtube.com/embed/uUkNXBln-0c",
+          type: "youtube",
+          id: "uUkNXBln-0c",
+          vertical: false,
+        },
+        {
+          src: "https://www.youtube.com/embed/wmAlQbhmbDc",
+          type: "youtube",
+          id: "wmAlQbhmbDc",
+          vertical: false,
+        },
+        {
+          src: "https://www.youtube.com/embed/xX_ZD4ceCAM",
+          type: "youtube",
+          id: "xX_ZD4ceCAM",
+          vertical: false,
+        },
+        {
+          src: "https://player.vimeo.com/video/1127467682?title=0&byline=0&portrait=0",
+          type: "vimeo",
+          id: "1127467682",
+          vertical: true,
+        },
+        {
+          src: "https://player.vimeo.com/video/1127468834?title=0&byline=0&portrait=0",
+          type: "vimeo",
+          id: "1127468834",
+          vertical: true,
+        },
+        {
+          src: "https://player.vimeo.com/video/1127469368?title=0&byline=0&portrait=0",
+          type: "vimeo",
+          id: "1127469368",
+          vertical: true,
+        },
+      ];
+
+      let currentIndex = 0;
+      const overlay = document.getElementById("videoFocusOverlay");
+      const focusIframe = document.getElementById("focusIframe");
+      const focusVideoWrapper = document.getElementById("focusVideoWrapper");
+      const closeBtn = document.getElementById("focusClose");
+      const prevBtn = document.getElementById("focusPrev");
+      const nextBtn = document.getElementById("focusNext");
+      const dotsContainer = document.getElementById("focusDots");
+
+      function updateFocusVideo() {
+        const video = videos[currentIndex];
+        focusIframe.src = video.src;
+        focusVideoWrapper.className = `video-focus-wrapper ${video.vertical ? "vertical" : "horizontal"}`;
+        updateDots();
+      }
+
+      function updateDots() {
+        const dots = dotsContainer.querySelectorAll(".focus-dot");
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === currentIndex);
+        });
+      }
+
+      function createDots() {
+        dotsContainer.innerHTML = "";
+        videos.forEach((_, i) => {
+          const dot = document.createElement("div");
+          dot.className = "focus-dot" + (i === 0 ? " active" : "");
+          dot.addEventListener("click", () => {
+            currentIndex = i;
+            updateFocusVideo();
+          });
+          dotsContainer.appendChild(dot);
+        });
+      }
+
+      function openFocusMode(index) {
+        currentIndex = index;
+        updateFocusVideo();
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeFocusMode() {
+        overlay.classList.remove("active");
+        document.body.style.overflow = "";
+        focusIframe.src = "";
+      }
+
+      function navigatePrev() {
+        currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+        updateFocusVideo();
+      }
+
+      function navigateNext() {
+        currentIndex = (currentIndex + 1 + videos.length) % videos.length;
+        updateFocusVideo();
+      }
+
+      closeBtn.addEventListener("click", closeFocusMode);
+      prevBtn.addEventListener("click", navigatePrev);
+      nextBtn.addEventListener("click", navigateNext);
+
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          closeFocusMode();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (!overlay.classList.contains("active")) return;
+
+        if (e.key === "Escape") {
+          closeFocusMode();
+        } else if (e.key === "ArrowLeft") {
+          navigatePrev();
+        } else if (e.key === "ArrowRight") {
+          navigateNext();
+        }
+      });
+
+      function init() {
+        createDots();
+        document.querySelectorAll(".video-item").forEach((item, index) => {
+          item.addEventListener("click", () => {
+            openFocusMode(index);
+          });
+        });
+      }
+
+      init();
+    </script>
+
+    <footer>
+      <div class="contact-bar">
+        <a href="https://www.instagram.com/olivervonwiese/" target="_blank" class="contact-icon-link">
+          <span class="material-symbols-outlined">camera_alt</span>
+        </a>
+        <a href="tel:+27769293571" class="contact-icon-link">
+          <span class="material-symbols-outlined">phone</span>
+        </a>
+        <a href="mailto:oliverluke1994@gmail.com" class="contact-icon-link">
+          <span class="material-symbols-outlined">mail</span>
+        </a>
+      </div>
+    </footer>
+  </body>
 </html>
