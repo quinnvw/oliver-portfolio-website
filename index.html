@@ -161,6 +161,8 @@
 
       @media (max-width: 1000px) {
         .video-row-3 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           align-items: stretch;
         }
       }
@@ -301,8 +303,7 @@
           grid-column: span 12;
         }
         .video-row-3{
-          display: flex;
-          flex-direction: column;
+          grid-template-columns: 1fr 1fr;
         }
       }
 
@@ -635,7 +636,16 @@
           <div class="video-wrapper">
             <div class="video-click-shield"></div>
             <iframe
-              src="https://player.vimeo.com/video/1127469368?title=0&byline=0&portrait=0"
+              src="https://player.vimeo.com/video/1194665504?title=0&byline=0&portrait=0"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="video-item vertical">
+          <div class="video-wrapper">
+            <div class="video-click-shield"></div>
+            <iframe
+              src="https://player.vimeo.com/video/1194667122?title=0&byline=0&portrait=0"
               allowfullscreen
             ></iframe>
           </div>
@@ -733,9 +743,15 @@
           vertical: true,
         },
         {
-          src: "https://player.vimeo.com/video/1127469368?title=0&byline=0&portrait=0",
+          src: "https://player.vimeo.com/video/1194665504?title=0&byline=0&portrait=0",
           type: "vimeo",
-          id: "1127469368",
+          id: "1194665504",
+          vertical: true,
+        },
+        {
+          src: "https://player.vimeo.com/video/1194667122?title=0&byline=0&portrait=0",
+          type: "vimeo",
+          id: "1194667122",
           vertical: true,
         },
       ];
